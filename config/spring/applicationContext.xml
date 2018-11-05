@@ -38,7 +38,20 @@
 	<bean id="userDao" class="cn.itcast.ssm.dao.UserDaoImpl">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
 	</bean>
-
+	
+	<!-- 通过mapper代理对象的方法 -->
+	<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="cn.itcast.ssm.mapper.UserMapper"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	
+	<!-- 当有多个mapper的时候，配置比较多麻烦，此时选用mapper扫描，生成mapper代理对象
+	对应的sqlMapConfig.xml文件中也由mapper包的扫描，也可以省略了。规范仍然是遵守同包下名称相同 -->
+	<!-- 一般赋值或者加载配置文件的的时候使用value,引用或者注入的时候使用ref -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="cn.itcast.ssm.mapper"/>
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+	</bean>
 
 </beans>
 

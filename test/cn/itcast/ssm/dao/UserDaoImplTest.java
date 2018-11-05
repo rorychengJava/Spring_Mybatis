@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import cn.itcast.ssm.mapper.UserMapper;
 import cn.itcast.ssm.po.User;
 
 /** 
@@ -25,7 +26,18 @@ public class UserDaoImplTest {
 		//得到spring容器
 	 applicationContext=new ClassPathXmlApplicationContext("classpath:spring/applicationContext.xml");
 	}
-
+	
+	@Test
+	public void testFindUserById2() throws Exception{
+		UserMapper userMapper=(UserMapper) applicationContext.getBean("userMapper");
+		List<User> list=userMapper.findUserById(1);
+		System.out.println(list);
+		
+		
+	}
+	
+	
+	//Dao方法测试代码
 	@Test
 	public void testFindUserById() throws Exception {
 		UserDao userDao=(UserDao) applicationContext.getBean("userDao");
